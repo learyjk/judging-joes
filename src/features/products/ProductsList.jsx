@@ -18,15 +18,15 @@ const ProductsList = () => {
   console.log(products)
 
   return (
-    <div className='container mx-auto'>
+    <section className='container max-w-lg'>
       <p className='text-3xl'>ProductsList</p>
-      <div className='grid grid-cols-4 gap-4'>
+      <div className='flex flex-col'>
         {products && products.map(product => (
-          <ProductCard key={product.id} product={product} />
+          <ProductCard key={product.name} product={product} />
         ))}
       </div>
 
-    </div>
+    </section>
   );
 };
 

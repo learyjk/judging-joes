@@ -1,11 +1,16 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { addNewProduct } from './productsSlice';
+import { addNewProduct, fetchProducts } from './productsSlice';
+import { MdDelete } from 'react-icons/md'
+import { deleteObject, getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage';
+import { storage } from '../../firebase.config';
 
 const AddProductForm = () => {
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
   const [category, setCategory] = useState('');
+  const [imageUrl, setimageUrl] = useState('');
+  const [isImageLoading, setIsImageLoading] = useState(false)
   // const [userId, setUserId] = useState('')
   const [addRequestStatus, setAddRequestStatus] = useState('idle')
 
@@ -25,10 +30,12 @@ const AddProductForm = () => {
     if (canSave) {
       try {
         setAddRequestStatus('pending')
-        await dispatch(addNewProduct({ name, description, category }))
+        await dispatch(addNewProduct({ name, description, category, imageUrl }))
         setName('')
         setDescription('')
         setCategory('')
+        setimageUrl('')
+        dispatch(fetchProducts())
       } catch (err) {
         console.error('Failed to save the post: ', err)
       } finally {
@@ -37,12 +44,46 @@ const AddProductForm = () => {
     }
   }
 
+  const uploadImage = async (e) => {
+    setIsImageLoading(true)
+    const imageFile = e.target.files[0]
+    console.log(imageFile)
+    const storageRef = ref(storage, `images/${Date.now()}-${imageFile.name}`)
+    const uploadTask = uploadBytesResumable(storageRef, imageFile)
+
+    uploadTask.on('state_changed', (snapshot) => {
+      const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+      console.log('Upload is ' + progress + '% done');
+    }, (error) => {
+      console.log('image uploade error', error)
+      setIsImageLoading(false)
+    }, () => {
+      // Upload completed successfully, now we can get the download URL
+      getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+        //console.log('File available at', downloadURL);
+        setimageUrl(downloadURL)
+        setIsImageLoading(false)
+      });
+    })
+  }
+
+  const deleteImage = () => {
+    setIsImageLoading(true)
+    const deleteRef = ref(storage, imageUrl);
+    deleteObject(deleteRef).then(() => {
+      setimageUrl('')
+      setIsImageLoading(false)
+    })
+  }
+
   return (
-    <section>
-      <h2>Add a New Product</h2>
-      <form>
+    <section className='container max-w-lg w-full p-4 mt-4'>
+      <h2 className='mb-2 text-xl'>Add a New Product</h2>
+      <form className='flex flex-col'>
         <label htmlFor="name">Product Name: </label>
         <input
+          required
+          className='border'
           type="text"
           id="name"
           name="name"
@@ -51,6 +92,8 @@ const AddProductForm = () => {
         />
         <label htmlFor="category">Category:</label>
         <input
+          required
+          className='border'
           type='text'
           id="category"
           name="category"
@@ -59,14 +102,45 @@ const AddProductForm = () => {
         />
         <label htmlFor="description">Description: </label>
         <textarea
+          required
+          className='border'
           type="textarea"
           id="description"
           name="description"
           value={description}
           onChange={onDescriptionChanged}
         />
+        {isImageLoading ? (
+          <p>Loading...</p>
+        ) : (
+          <>
+            {!imageUrl ? (
+              <>
+                <label htmlFor="image">Image: </label>
+                <input
+                  required
+                  className='border'
+                  type="file"
+                  id="image"
+                  name="image"
+                  accept="image/*"
+                  value={imageUrl}
+                  onChange={uploadImage}
+                />
+              </>
+            ) : (
+              <div className='relative h-60 overflow-hidden'>
+                <img src={imageUrl} className='object-cover' alt="upload" />
+                <button className='absolute top-0 right-0 bg-red-600' onClick={deleteImage}>
+                  <MdDelete className='text-white' />
+                </button>
+              </div>
+            )}
+          </>
 
-        <button type="button" onClick={onAddProductClicked}>Add Product</button>
+        )}
+
+        <button className='bg-blue-400' type="button" onClick={onAddProductClicked}>Add Product</button>
       </form>
     </section>
   );

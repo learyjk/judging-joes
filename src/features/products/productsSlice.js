@@ -13,7 +13,11 @@ export const fetchProducts = createAsyncThunk(
   async () => {
     const productsCol = collection(db, 'products')
     const productSnapshot = await getDocs(productsCol)
-    const productsList = productSnapshot.docs.map(doc => doc.data())
+    const productsList = productSnapshot.docs.map(doc => {
+      let obj = doc.data()
+      obj.slug = doc.id
+      return obj
+    })
     console.log(productsList)
     return productsList
   }
