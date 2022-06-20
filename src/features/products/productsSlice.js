@@ -18,7 +18,6 @@ export const fetchProducts = createAsyncThunk(
       obj.slug = doc.id
       return obj
     })
-    console.log(productsList)
     return productsList
   }
 )

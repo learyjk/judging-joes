@@ -30,7 +30,9 @@ const AddProductForm = () => {
     if (canSave) {
       try {
         setAddRequestStatus('pending')
-        await dispatch(addNewProduct({ name, description, category, imageUrl }))
+        const numReviews = 0;
+        const avgRating = 0;
+        await dispatch(addNewProduct({ name, description, category, imageUrl, numReviews, avgRating }))
         setName('')
         setDescription('')
         setCategory('')
@@ -77,13 +79,13 @@ const AddProductForm = () => {
   }
 
   return (
-    <section className='w-full mt-4'>
+    <section className='container w-full max-w-lg mt-4'>
       <h2 className='mb-2 text-xl'>Add a New Product</h2>
       <form className='flex flex-col'>
         <label htmlFor="name">Product Name: </label>
         <input
           required
-          className='border'
+          className='border rounded-md px-2 py-1'
           type="text"
           id="name"
           name="name"
@@ -93,7 +95,7 @@ const AddProductForm = () => {
         <label htmlFor="category">Category:</label>
         <input
           required
-          className='border'
+          className='border rounded-md px-2 py-1'
           type='text'
           id="category"
           name="category"
@@ -103,7 +105,7 @@ const AddProductForm = () => {
         <label htmlFor="description">Description: </label>
         <textarea
           required
-          className='border'
+          className='border rounded-md px-2 py-1'
           type="textarea"
           id="description"
           name="description"
@@ -119,7 +121,7 @@ const AddProductForm = () => {
                 <label htmlFor="image">Image: </label>
                 <input
                   required
-                  className='border'
+                  className='border rounded-md px-2 py-1'
                   type="file"
                   id="image"
                   name="image"
@@ -129,7 +131,7 @@ const AddProductForm = () => {
                 />
               </>
             ) : (
-              <div className='relative h-60 overflow-hidden'>
+              <div className='relative h-60 mt-4 mb-4 overflow-hidden'>
                 <img src={imageUrl} className='object-cover' alt="upload" />
                 <button className='absolute top-0 right-0 bg-red-600' onClick={deleteImage}>
                   <MdDelete className='text-white' />
@@ -140,7 +142,7 @@ const AddProductForm = () => {
 
         )}
 
-        <button className='bg-blue-400' type="button" onClick={onAddProductClicked}>Add Product</button>
+        <button className='rounded-md px-2 py-1 bg-blue-200 mt-2 hover:bg-blue-300' type="button" onClick={onAddProductClicked}>Add Product</button>
       </form>
     </section>
   );

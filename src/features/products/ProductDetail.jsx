@@ -20,8 +20,7 @@ const ProductDetail = () => {
     setIsPageLoading(false)
 
     return () => {
-      // reset state
-      console.log('reset the reviews!')
+      // reset reviews
       dispatch(reviewsSliceActions.resetReviews())
     }
 
@@ -36,7 +35,6 @@ const ProductDetail = () => {
           <Loader />
         ) : (
           reviews.map((review) => {
-            console.log('isPageLoading', isPageLoading)
             const d = new Date(review.created_at * 1000)
             const timeSince = `${formatDistanceToNow(d)} ago`
 

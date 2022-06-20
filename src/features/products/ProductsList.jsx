@@ -10,12 +10,10 @@ const ProductsList = () => {
   const productsStatus = useSelector(state => state.products.status)
 
   useEffect(() => {
-    if (productsStatus === 'idle') {
-      dispatch(fetchProducts())
-    }
-  }, [productsStatus, dispatch])
+    dispatch(fetchProducts())
+  }, [dispatch])
 
-  console.log(products)
+  //console.log(products)
 
   return (
     <section className='container max-w-lg'>

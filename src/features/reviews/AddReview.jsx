@@ -10,7 +10,7 @@ const AddReview = ({ productSlug }) => {
   const [review, setReview] = useState('')
 
   const onUserChanged = (e) => setUser(e.target.value)
-  const onRatingChanged = (e) => setRating(e.target.value)
+  const onRatingChanged = (e) => setRating(parseInt(e.target.value))
   const onReviewChanged = (e) => setReview(e.target.value)
 
   const onAddReviewClicked = async (e) => {
@@ -18,6 +18,7 @@ const AddReview = ({ productSlug }) => {
       alert('invalid review')
       return
     }
+
     const data = { user, rating, review, productSlug }
     await dispatch(addNewReview(data))
     setUser('')
@@ -33,7 +34,7 @@ const AddReview = ({ productSlug }) => {
         <label htmlFor="name">Username:</label>
         <input
           required
-          className='border'
+          className='border rounded-md px-2 py-1'
           type="text"
           id="user"
           name="user"
@@ -43,7 +44,7 @@ const AddReview = ({ productSlug }) => {
         <label htmlFor="rating">Rating:</label>
         <input
           required
-          className='border'
+          className='border rounded-md px-2 py-1'
           type='number'
           id="rating"
           name="rating"
@@ -54,14 +55,14 @@ const AddReview = ({ productSlug }) => {
         <label htmlFor="review">Review: </label>
         <textarea
           required
-          className='border'
+          className='border rounded-md px-2 py-1'
           type="textarea"
           id="review"
           name="review"
           value={review}
           onChange={onReviewChanged}
         />
-        <button className='bg-blue-400' type="button" onClick={onAddReviewClicked}>Add Review</button>
+        <button className='rounded-md px-2 py-1 bg-blue-200 mt-2 hover:bg-blue-300' type="button" onClick={onAddReviewClicked}>Add Review</button>
       </form>
 
     </section>
