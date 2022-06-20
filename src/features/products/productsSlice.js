@@ -28,7 +28,8 @@ export const addNewProduct = createAsyncThunk(
   async (data) => {
     let slug = data.name.toLowerCase().replace(/[^\w ]+/g, '').replace(/ +/g, '-');
     try {
-      await setDoc(doc(db, 'products', slug), data)
+      const document = doc(db, 'products', slug)
+      await setDoc(document, data)
     } catch (error) {
       console.log(error)
     }

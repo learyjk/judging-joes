@@ -8,7 +8,7 @@ function App() {
     <div>
       <section className='container max-w-lg w-full'>
         <Link to={'/'}>
-          <text className='text-3xl'>Judging Joe's!</text>
+          <p className='text-3xl'>Judging Joe's!</p>
         </Link>
       </section>
       <Outlet />
