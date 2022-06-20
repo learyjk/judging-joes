@@ -42,7 +42,11 @@ export const addNewReview = createAsyncThunk(
 const reviewsSlice = createSlice({
   name: 'reviews',
   initialState,
-  reducers: {},
+  reducers: {
+    resetReviews(state, action) {
+      state.reviews = []
+    }
+  },
   extraReducers: builder => {
     builder.addCase(fetchReviews.fulfilled, (state, action) => {
       state.status = 'succeeded';
@@ -51,7 +55,7 @@ const reviewsSlice = createSlice({
   }
 })
 
-export const reviesSliceActions = reviewsSlice.actions
+export const reviewsSliceActions = reviewsSlice.actions
 
 export default reviewsSlice.reducer
 

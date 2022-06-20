@@ -1,43 +1,53 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import AddReview from '../reviews/AddReview';
-import { fetchReviews, selectAllReviews } from '../reviews/reviewsSlice';
 import formatDistanceToNow from 'date-fns/formatDistanceToNow';
+
+import AddReview from '../reviews/AddReview';
+import { fetchReviews, reviewsSliceActions, selectAllReviews } from '../reviews/reviewsSlice';
+import Loader from '../../components/Loader'
 
 const ProductDetail = () => {
   let { productSlug } = useParams()
-
+  const [isPageLoading, setIsPageLoading] = useState(true)
   const dispatch = useDispatch()
+
   const reviews = useSelector(selectAllReviews)
-  const reviewsStatus = useSelector(state => state.reviews.status)
+  //const reviewsStatus = useSelector(state => state.reviews.status)
 
   useEffect(() => {
-    if (reviewsStatus === 'idle') {
-      dispatch(fetchReviews(productSlug))
+    dispatch(fetchReviews(productSlug))
+    setIsPageLoading(false)
+
+    return () => {
+      // reset state
+      console.log('reset the reviews!')
+      dispatch(reviewsSliceActions.resetReviews())
     }
-  }, [reviewsStatus, dispatch])
+
+  }, [productSlug, dispatch])
 
   return (
     <>
       <section className='container max-w-lg'>
         <h2>Product Detail</h2>
         <p>{productSlug}</p>
-        {reviews && reviews.map((review) => {
+        {isPageLoading ? (
+          <Loader />
+        ) : (
+          reviews.map((review) => {
+            console.log('isPageLoading', isPageLoading)
+            const d = new Date(review.created_at * 1000)
+            const timeSince = `${formatDistanceToNow(d)} ago`
 
-          const d = new Date(review.created_at * 1000)
-          const timeSince = `${formatDistanceToNow(d)} ago`
-
-          return (
-            <div key={review.slug}>
-              <p>{review.user}</p>
-              <p>{timeSince}</p>
-              <p>{review.review}</p>
-            </div>
-          )
-        }
-
-
+            return (
+              <div key={review.slug}>
+                <p>{review.user}</p>
+                <p>{timeSince}</p>
+                <p>{review.review}</p>
+              </div>
+            )
+          })
         )}
       </section>
 
