@@ -8,6 +8,9 @@ module.exports = {
       center: true,
       padding: '2rem',
     },
+    fontFamily: {
+      'display': ['Millisime', 'system-ui']
+    },
     extend: {},
   },
   plugins: [],

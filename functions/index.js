@@ -38,7 +38,7 @@ exports.aggregateReviews = functions.firestore
         //delete event
         console.log('delete event')
         newNumReviews -= 1;
-        reviewVal = before.data().rating * -1
+        reviewVal = before.data().rating * (-1)
       } else {
         //add event
         console.log('add event')
@@ -48,7 +48,8 @@ exports.aggregateReviews = functions.firestore
 
       // Compute new average rating
       const oldReviewTotal = productDoc.data().avgRating * productDoc.data().numReviews;
-      const newAvgRating = (oldReviewTotal + reviewVal) / newNumReviews;
+      let newAvgRating = (oldReviewTotal + reviewVal) / (newNumReviews);
+      if (isNaN(newAvgRating) || newAvgRating < 0) newAvgRating = 0;
 
       // Update product info
       transaction.update(productRef, {

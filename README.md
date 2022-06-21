@@ -8,6 +8,7 @@ TODO
 [ ] Styling
 [ ] Filter and sort
 [ ] Bubble featured / new to top.
+[ ] Deploy
 
 React
 Redux Toolkit

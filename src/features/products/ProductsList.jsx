@@ -17,8 +17,7 @@ const ProductsList = () => {
 
   return (
     <section className='container max-w-lg'>
-      <p className='text-3xl'>ProductsList</p>
-      <div className='flex flex-col'>
+      <div className='flex flex-col gap-4'>
         {products && products.map(product => (
           <ProductCard key={product.name} product={product} />
         ))}
