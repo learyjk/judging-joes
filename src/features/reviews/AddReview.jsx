@@ -1,15 +1,18 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectUser } from '../user/userSlice';
 import { addNewReview, fetchReviews } from './reviewsSlice';
 
 const AddReview = ({ productSlug }) => {
   const dispatch = useDispatch()
 
-  const [user, setUser] = useState('')
+  //const [user, setUser] = useState('')
   const [rating, setRating] = useState(0)
   const [review, setReview] = useState('')
 
-  const onUserChanged = (e) => setUser(e.target.value)
+  const user = useSelector(selectUser)
+
+  //const onUserChanged = (e) => setUser(e.target.value)
   const onRatingChanged = (e) => setRating(parseInt(e.target.value))
   const onReviewChanged = (e) => setReview(e.target.value)
 
@@ -19,9 +22,8 @@ const AddReview = ({ productSlug }) => {
       return
     }
 
-    const data = { user, rating, review, productSlug }
+    const data = { user: user.displayName, rating, review, productSlug }
     await dispatch(addNewReview(data))
-    setUser('')
     setRating(0)
     setReview('')
     await dispatch(fetchReviews(productSlug))
@@ -29,9 +31,8 @@ const AddReview = ({ productSlug }) => {
 
   return (
     <section className='w-full'>
-      <h2 className='mb-2 text-xl'>Add a Review</h2>
-      <form className='flex flex-col'>
-        <label htmlFor="name">Username:</label>
+      <form className='flex flex-col gap-4 bg-slate-100 p-4 rounded-xl'>
+        {/* <label htmlFor="name">Username:</label>
         <input
           required
           className='border rounded-md px-2 py-1'
@@ -40,29 +41,40 @@ const AddReview = ({ productSlug }) => {
           name="user"
           value={user}
           onChange={onUserChanged}
-        />
-        <label htmlFor="rating">Rating:</label>
-        <input
-          required
-          className='border rounded-md px-2 py-1'
-          type='number'
-          id="rating"
-          name="rating"
-          min="1" max="5"
-          value={rating}
-          onChange={onRatingChanged}
-        />
-        <label htmlFor="review">Review: </label>
-        <textarea
-          required
-          className='border rounded-md px-2 py-1'
-          type="textarea"
-          id="review"
-          name="review"
-          value={review}
-          onChange={onReviewChanged}
-        />
-        <button className='rounded-md px-2 py-1 bg-blue-200 mt-2 hover:bg-blue-300' type="button" onClick={onAddReviewClicked}>Add Review</button>
+        /> */}
+        <div className='flex flex-row gap-4'>
+          <div className='flex flex-col'>
+            <label htmlFor="rating">Rating:</label>
+            <input
+              required
+              disabled={!user ? true : false}
+              className='flex-grow text-center w-20 border rounded-md px-2 py-1 text-5xl font-display leading-tight'
+              type='number'
+              id="rating"
+              name="rating"
+              min="1" max="5"
+              value={rating}
+              onChange={onRatingChanged}
+            />
+          </div>
+          <div className='flex flex-col w-full'>
+            <label htmlFor="review">Review: </label>
+            <textarea
+              required
+              disabled={!user ? true : false}
+              className='flex-grow border rounded-md px-2 py-1'
+              type="textarea"
+              id="review"
+              name="review"
+              value={review}
+              onChange={onReviewChanged}
+            />
+          </div>
+        </div>
+
+        <button className={`${!user ? 'pointer-events-none' : ''} rounded-md px-2 py-1 bg-blue-200 hover:bg-blue-300`} type="button" onClick={onAddReviewClicked}>
+          {`${!user ? 'Please login to review' : 'Add Your Review'}`}
+        </button>
       </form>
 
     </section>

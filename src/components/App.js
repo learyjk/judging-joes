@@ -44,7 +44,7 @@ function App() {
         </section>
         <Outlet />
       </div>
-    </AnimatePresence >
+    </AnimatePresence>
   );
 }
 

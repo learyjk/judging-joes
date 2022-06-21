@@ -29,7 +29,9 @@ const ProductDetail = () => {
   return (
     <>
       <section className='container max-w-lg'>
-        <h2>Product Detail</h2>
+        <AddReview productSlug={productSlug} />
+      </section>
+      <section className='container max-w-lg'>
         <p>{productSlug}</p>
         {isPageLoading ? (
           <Loader />
@@ -49,9 +51,7 @@ const ProductDetail = () => {
         )}
       </section>
 
-      <section className='container max-w-lg'>
-        <AddReview productSlug={productSlug} />
-      </section>
+
     </>
   );
 };
