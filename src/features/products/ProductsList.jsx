@@ -16,7 +16,7 @@ const ProductsList = () => {
   //console.log(products)
 
   return (
-    <section className='container max-w-lg'>
+    <section className='container max-w-xl'>
       <div className='flex flex-col gap-4'>
         {products && products.map(product => (
           <ProductCard key={product.name} product={product} />

@@ -5,7 +5,10 @@
 @import url("https://use.typekit.net/lzj2lck.css");
 
 html {
-  background-color: rgb(231, 231, 231);
+  /* stone-100 */
+  background-color: #F5F5F4;
+  /* slate-800 */
+  color: #292524;
 }
 
 

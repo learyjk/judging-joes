@@ -79,7 +79,7 @@ const AddProductForm = () => {
   }
 
   return (
-    <section className='container w-full max-w-lg mt-4'>
+    <section className='container w-full max-w-xl mt-4'>
       <h2 className='mb-2 text-xl'>Add a New Product</h2>
       <form className='flex flex-col'>
         <label htmlFor="name">Product Name: </label>
