@@ -29,6 +29,7 @@ const ProductDetail = () => {
     }
   }, [productSlug, dispatch])
 
+  // handle refresh
   if (!product || !reviews) {
     return (
       <div className='container max-w-xl w-full flex items-center justify-center'>
@@ -52,7 +53,7 @@ const ProductDetail = () => {
           <Loader />
         ) : (
           reviews.map((review) => (
-            <ReviewCard key={review.slug} review={review} />
+            <ReviewCard key={review.slug} review={review} productSlug={productSlug} />
           )
           )
         )}

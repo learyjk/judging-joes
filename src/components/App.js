@@ -23,8 +23,6 @@ function App() {
     await dispatch(logoutUser())
   }
 
-  console.log('user', user)
-
   return (
     <AnimatePresence>
       <div className='flex flex-col min-h-screen'>

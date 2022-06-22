@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk, createSelector } from "@reduxjs/toolkit";
-import { collection, getDocs, doc, setDoc, Timestamp, query, orderBy, FieldValue, serverTimestamp } from "firebase/firestore";
+import { collection, getDocs, doc, setDoc, Timestamp, query, orderBy, FieldValue, serverTimestamp, deleteDoc } from "firebase/firestore";
 import { db } from "../../firebase.config";
 
 const initialState = {
@@ -37,6 +37,20 @@ export const addNewReview = createAsyncThunk(
   }
 )
 
+export const deleteReview = createAsyncThunk(
+  'reviews/deleteReview',
+  async (data) => {
+    console.log(data)
+    const reviewRef = doc(db, `products/${data.productSlug}/reviews`, data.reviewSlug)
+    //console.log(reviewRef)
+    try {
+      await deleteDoc(reviewRef)
+    } catch (error) {
+      console.error('error deleting review')
+    }
+  }
+)
+
 const reviewsSlice = createSlice({
   name: 'reviews',
   initialState,
@@ -46,10 +60,15 @@ const reviewsSlice = createSlice({
     }
   },
   extraReducers: builder => {
-    builder.addCase(fetchReviews.fulfilled, (state, action) => {
-      state.status = 'succeeded';
-      state.reviews = action.payload;
-    })
+    builder
+      .addCase(fetchReviews.fulfilled, (state, action) => {
+        state.status = 'succeeded';
+        state.reviews = action.payload;
+      })
+      .addCase(deleteReview.fulfilled, (state, action) => {
+        console.log('state')
+        console.log('action', action)
+      })
   }
 })
 
