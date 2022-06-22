@@ -22,7 +22,7 @@ const AddReview = ({ productSlug }) => {
       return
     }
 
-    const data = { user: user.displayName, rating, review, productSlug }
+    const data = { user: user.displayName, uid: user.uid, rating, review, productSlug, userPhoto: user.photoURL }
     await dispatch(addNewReview(data))
     setRating(0)
     setReview('')

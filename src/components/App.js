@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, Outlet } from 'react-router-dom';
 import { FaUserCircle } from 'react-icons/fa';
 import { AnimatePresence } from 'framer-motion';
 import { motion } from 'framer-motion';
 import { selectUser, setUser, logoutUser } from '../features/user/userSlice';
+import { fetchProducts } from '../features/products/productsSlice';
 
 
 
@@ -28,7 +29,7 @@ function App() {
     <AnimatePresence>
       <div className='flex flex-col min-h-screen'>
         <div className='mb-12'>
-          <section className='w-full bg-white border-b border-slate-400 mb-4'>
+          <section className='w-full bg-white border-b border-slate-400 mb-8'>
             <div className='container max-w-xl w-full'>
               <div className='flex items-center justify-between mb-4'>
                 <div>

@@ -11,7 +11,7 @@ TODO
 [ ] Bubble featured / new to top.
 [ ] Deploy
 [ ] Populate with interesting example data
-[ ] Add bottom margin
+[X] Add bottom margin
 [ ] Choose default body text
 
 React

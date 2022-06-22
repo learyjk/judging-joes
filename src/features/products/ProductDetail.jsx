@@ -6,10 +6,10 @@ import AddReview from '../reviews/AddReview';
 import { fetchReviews, reviewsSliceActions, selectAllReviews } from '../reviews/reviewsSlice';
 import Loader from '../../components/Loader'
 import ReviewCard from '../reviews/ReviewCard';
-import { fetchProductBySlug, fetchProducts, selectProductBySlug } from './productsSlice';
+import { fetchProducts, selectAllProducts, selectProductBySlug } from './productsSlice';
 
 const ProductDetail = () => {
-  let { productSlug } = useParams()
+  const { productSlug } = useParams()
   const [isPageLoading, setIsPageLoading] = useState(true)
   const dispatch = useDispatch()
 
@@ -17,22 +17,25 @@ const ProductDetail = () => {
   let product = useSelector(state => selectProductBySlug(state, productSlug))
   //const reviewsStatus = useSelector(state => state.reviews.status)
 
-  console.log('product', product)
-  // gets the product if not navigated from ProductList
-  if (!product) {
-    dispatch(fetchProducts())
-  }
+  console.log('productSlug', productSlug, 'product', product, 'reviews', reviews)
 
   useEffect(() => {
+    dispatch(fetchProducts())
     dispatch(fetchReviews(productSlug))
     setIsPageLoading(false)
-
     return () => {
       // reset reviews
       dispatch(reviewsSliceActions.resetReviews())
     }
-
   }, [productSlug, dispatch])
+
+  if (!product || !reviews) {
+    return (
+      <div className='container max-w-xl w-full flex items-center justify-center'>
+        <Loader />
+      </div>
+    )
+  }
 
   return (
     <>

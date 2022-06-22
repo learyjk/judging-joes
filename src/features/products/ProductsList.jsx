@@ -16,8 +16,6 @@ const ProductsList = () => {
     dispatch(fetchProducts())
   }, [dispatch])
 
-  console.log(filteredSortedProducts)
-
   const handleFilterChange = (e) => setFilterText(e.target.value.toLocaleLowerCase())
   const handleSortChange = (e) => setSortValue(e.target.value)
 

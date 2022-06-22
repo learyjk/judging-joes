@@ -13,14 +13,12 @@ export const fetchReviews = createAsyncThunk(
   async (productSlug) => {
     const reviewsRef = collection(db, `products/${productSlug}/reviews`)
     const q = query(reviewsRef, orderBy('created_at', 'desc'))
-    console.log(q)
     const reviewsSnapshot = await getDocs(q)
     const reviewsList = reviewsSnapshot.docs.map(doc => {
       let obj = doc.data()
       obj.slug = doc.id
       return obj
     })
-    console.log(reviewsList)
     return reviewsList
   }
 )
