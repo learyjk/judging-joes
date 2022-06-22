@@ -1,11 +1,10 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, Outlet } from 'react-router-dom';
 import { FaUserCircle } from 'react-icons/fa';
 import { AnimatePresence } from 'framer-motion';
 import { motion } from 'framer-motion';
 import { selectUser, setUser, logoutUser } from '../features/user/userSlice';
-import { fetchProducts } from '../features/products/productsSlice';
 
 
 

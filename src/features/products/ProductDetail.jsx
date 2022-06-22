@@ -6,7 +6,7 @@ import AddReview from '../reviews/AddReview';
 import { fetchReviews, reviewsSliceActions, selectAllReviews } from '../reviews/reviewsSlice';
 import Loader from '../../components/Loader'
 import ReviewCard from '../reviews/ReviewCard';
-import { fetchProducts, selectAllProducts, selectProductBySlug } from './productsSlice';
+import { fetchProducts, selectProductBySlug } from './productsSlice';
 
 const ProductDetail = () => {
   const { productSlug } = useParams()

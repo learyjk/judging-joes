@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { selectAllProducts, fetchProducts, selectProductsByFilterText, selectProductsByFilterAndSort } from './productsSlice';
+import { fetchProducts, selectProductsByFilterAndSort } from './productsSlice';
 import ProductCard from './ProductCard';
 
 const ProductsList = () => {
@@ -8,9 +8,7 @@ const ProductsList = () => {
   const [sortValue, setSortValue] = useState('ratingHighToLow')
 
   const dispatch = useDispatch()
-  const filteredProducts = useSelector(state => selectProductsByFilterText(state, filterText))
   const filteredSortedProducts = useSelector(state => selectProductsByFilterAndSort(state, filterText, sortValue))
-  //const products = useSelector(selectAllProducts)
 
   useEffect(() => {
     dispatch(fetchProducts())
