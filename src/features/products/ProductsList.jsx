@@ -21,10 +21,10 @@ const ProductsList = () => {
 
   return (
     <section className='container max-w-xl'>
-      <div className='flex flex-row gap-4 mb-4'>
+      <div className='flex flex-col sm:flex-row gap-4 mb-4'>
         <div className='relative'>
           <label className='absolute left-2 -top-3 bg-white rounded-md  py-0.5 px-1 text-xs uppercase border-slate-400 border' htmlFor="filter">Sort: </label>
-          <select className='w-48 rounded-md border py-3 px-2 border-slate-400' onChange={handleSortChange}>
+          <select className=' w-full md:w-48 rounded-md border py-2 px-2 border-slate-400' onChange={handleSortChange}>
             <option value="ratingHighToLow">Rating: High to Low</option>
             <option value="ratingLowToHigh">Rating: Low to High</option>
           </select>

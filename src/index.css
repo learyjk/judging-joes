@@ -3,12 +3,24 @@
 @tailwind utilities;
 
 @import url("https://use.typekit.net/lzj2lck.css");
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700;800&display=swap');
 
 html {
   /* stone-100 */
   background-color: #F5F5F4;
   /* slate-800 */
   color: #292524;
+  font-family:'Open Sans', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+input:focus {
+  outline: 2px solid #991B1B;
+}
+select:focus {
+  outline: 2px solid #991B1B;
+}
+textarea:focus {
+  outline: 2px solid #991B1B;
 }
 .lds-ellipsis {
   display: inline-block;

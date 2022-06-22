@@ -32,7 +32,7 @@ exports.aggregateReviews = functions.firestore
         //update event
         // do nothing with numReviews
         console.log('update event')
-        reviewVal = after.data().rating
+        reviewVal = 0
       }
       else if (!after.exists) {
         //delete event

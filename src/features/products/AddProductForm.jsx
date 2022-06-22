@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { addNewProduct, fetchProducts } from './productsSlice';
 import { MdDelete } from 'react-icons/md'
 import { deleteObject, getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage';
 import { storage } from '../../firebase.config';
+import { selectUser } from '../user/userSlice';
 
 const AddProductForm = () => {
   const [name, setName] = useState('');
@@ -15,6 +16,7 @@ const AddProductForm = () => {
   const [addRequestStatus, setAddRequestStatus] = useState('idle')
 
   const dispatch = useDispatch();
+  const user = useSelector(selectUser)
 
   //const users = useSelector(state => state.users)
 
@@ -27,12 +29,22 @@ const AddProductForm = () => {
     [name, description, category].every(Boolean) && addRequestStatus === 'idle'
 
   const onAddProductClicked = async () => {
+    if (!user) {
+      alert('not logged in!')
+      return
+    }
+    if (!user.email.includes('leary.keegan')) {
+      alert('user not an admin!')
+      console.log('user is not an admin')
+      return
+    }
     if (canSave) {
       try {
         setAddRequestStatus('pending')
         const numReviews = 0;
         const avgRating = 0;
         await dispatch(addNewProduct({ name, description, category, imageUrl, numReviews, avgRating }))
+        alert(`product ${name} added!`)
         setName('')
         setDescription('')
         setCategory('')
@@ -81,6 +93,7 @@ const AddProductForm = () => {
   return (
     <section className='container w-full max-w-xl mt-4'>
       <h2 className='mb-2 text-xl'>Add a New Product</h2>
+      <p className='p-2 bg-yellow-200 text-sm rounded-lg mb-4 text-center'>⚠️ Adding products only available for admins ⚠️</p>
       <form className='flex flex-col'>
         <label htmlFor="name">Product Name: </label>
         <input
@@ -121,7 +134,7 @@ const AddProductForm = () => {
                 <label htmlFor="image">Image: </label>
                 <input
                   required
-                  className='border rounded-md px-2 py-1'
+                  className='border rounded-md px-2 py-1 h-60'
                   type="file"
                   id="image"
                   name="image"
@@ -134,7 +147,7 @@ const AddProductForm = () => {
               <div className='relative h-60 mt-4 mb-4 overflow-hidden'>
                 <img src={imageUrl} className='object-cover' alt="upload" />
                 <button className='absolute top-0 right-0 bg-red-600' onClick={deleteImage}>
-                  <MdDelete className='text-white' />
+                  <MdDelete className='text-red-50 w-18 h-18' />
                 </button>
               </div>
             )}
@@ -142,7 +155,7 @@ const AddProductForm = () => {
 
         )}
 
-        <button className='rounded-md px-2 py-1 bg-blue-200 mt-2 hover:bg-blue-300' type="button" onClick={onAddProductClicked}>Add Product</button>
+        <button className='rounded-md px-2 py-1 bg-red-700 mt-2 hover:bg-red-600 text-red-50' type="button" onClick={onAddProductClicked}>Add Product</button>
       </form>
     </section>
   );

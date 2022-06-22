@@ -29,7 +29,7 @@ const ReviewCard = ({ review, productSlug }) => {
     <div className='relative flex w-full items-stretch border border-stone-400 rounded-lg bg-white transition-all duration-300'>
       {/* TODO Remove leary.keegan access */}
       {user && ((user.uid === review.uid) || user.email.includes('leary.keegan')) ? (
-        <motion.button className='absolute -top-2 -right-2' onClick={handleDeleteClick} whileTap={{ scale: 0.8 }}><CgClose className='text-red-50 bg-red-800 rounded-full p-0.5 border-stone-400' /></motion.button>
+        <motion.button className='absolute -top-2 -right-2' onClick={handleDeleteClick} whileTap={{ scale: 0.8 }}><CgClose className='text-red-50 bg-red-700 rounded-full p-0.5 border-red-900 hover:bg-red-600 hover:scale-110 transition-all duration-300 ease-out' /></motion.button>
       ) : (
         <></>
       )}

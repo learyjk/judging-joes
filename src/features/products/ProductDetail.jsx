@@ -17,8 +17,6 @@ const ProductDetail = () => {
   let product = useSelector(state => selectProductBySlug(state, productSlug))
   //const reviewsStatus = useSelector(state => state.reviews.status)
 
-  console.log('productSlug', productSlug, 'product', product, 'reviews', reviews)
-
   useEffect(() => {
     dispatch(fetchProducts())
     dispatch(fetchReviews(productSlug))
@@ -41,9 +39,14 @@ const ProductDetail = () => {
   return (
     <>
       <section className='container max-w-xl w-full'>
-        <div className='border border-slate-400 rounded-2xl overflow-hidden'>
-          <img className='w-full h-48 object-cover' src={product.imageUrl} alt={product.name} />
-          <AddReview productSlug={productSlug} />
+        <div className='border border-slate-400 rounded-2xl '>
+          <img className='w-full h-48 object-cover rounded-t-2xl' src={product.imageUrl} alt={product.name} />
+          <div className='relative'>
+            <AddReview productSlug={productSlug} />
+            <div className='absolute -top-8 -right-4 bg-red-700 text-red-50 text-2xl font-display px-4 py-1 rounded-lg border border-red-900'>{product.name}</div>
+            <div className='absolute -top-32 -right-4 bg-red-700 text-red-50 text-5xl font-display px-4 pb-4 rounded-lg border border-red-900'>{product.avgRating.toFixed(2)}</div>
+          </div>
+
         </div>
 
       </section>
@@ -57,10 +60,7 @@ const ProductDetail = () => {
           )
           )
         )}
-
       </section>
-
-
     </>
   );
 };

@@ -30,25 +30,15 @@ const AddReview = ({ productSlug }) => {
   }
 
   return (
-    <div className='w-full bg-stone-200 pt-2'>
+    <div className='w-full bg-stone-200 pt-2 rounded-b-2xl'>
       <form className='flex flex-col gap-4 p-4 rounded-xl'>
-        {/* <label htmlFor="name">Username:</label>
-        <input
-          required
-          className='border rounded-md px-2 py-1'
-          type="text"
-          id="user"
-          name="user"
-          value={user}
-          onChange={onUserChanged}
-        /> */}
         <div className='flex flex-row gap-4'>
           <div className='flex flex-col relative'>
             <label className='absolute left-2 -top-3 bg-white rounded-md py-0.5 px-1 text-xs uppercase border-slate-400 border' htmlFor="rating">Rating:</label>
             <input
               required
               disabled={!user ? true : false}
-              className='flex-grow text-center w-20 border border-slate-400 rounded-md px-2 py-1 text-5xl font-display leading-tight'
+              className='flex-grow text-center w-20 border border-slate-400 rounded-md px-2 py-1 text-5xl font-display leading-tight transition-colors duration-500'
               type='number'
               id="rating"
               name="rating"
@@ -62,7 +52,7 @@ const AddReview = ({ productSlug }) => {
             <textarea
               required
               disabled={!user ? true : false}
-              className='flex-grow border border-slate-400 rounded-md px-2 py-2'
+              className='flex-grow border border-slate-400 rounded-md px-2 py-2 transition-colors duration-500'
               type="textarea"
               id="review"
               name="review"
