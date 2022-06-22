@@ -27,13 +27,17 @@ function App() {
   return (
     <AnimatePresence>
       <div>
-        <section className='w-full bg-white border-b border-slate-900 mb-4'>
+        <section className='w-full bg-white border-b border-slate-400 mb-4'>
           <div className='container max-w-xl w-full'>
             <div className='flex items-center justify-between mb-4'>
-              <Link to={'/'}>
-                <p className='text-5xl font-display font-bold tracking-tight text-red-700 hover:text-red-800 transition-colors duration-300'>Judging Joe's!</p>
-              </Link>
-              <motion.button whileTap={{ scale: 0.8 }} onClick={user ? logout : login} className='w-14 p-2 mt-2 hover:text-red-800'>
+              <div>
+                <Link to={'/'}>
+                  <p className='text-5xl font-display font-bold tracking-tight text-red-700 hover:text-red-700 transition-colors duration-300 mb-1'>Judging Joe's</p>
+                </Link>
+                <p className='text-sm tracking-widest uppercase'>Open source TJ Snack Reviews</p>
+              </div>
+
+              <motion.button whileTap={{ scale: 0.8 }} onClick={user ? logout : login} className='w-14 p-2 mt-2 hover:text-red-800 hover:brightness-110'>
                 {user
                   ?
                   (<img src={user.photoURL} className='rounded-full' alt='user avatar' />)

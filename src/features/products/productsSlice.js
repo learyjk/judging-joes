@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk, createSelector } from "@reduxjs/toolkit";
-import { collection, getDocs, doc, setDoc } from "firebase/firestore";
+import { collection, getDocs, doc, setDoc, getDoc } from "firebase/firestore";
 import { db } from "../../firebase.config";
 
 const initialState = {
@@ -22,6 +22,19 @@ export const fetchProducts = createAsyncThunk(
   }
 )
 
+export const fetchProductBySlug = createAsyncThunk(
+  'products/fetchProductBySlug',
+  async (productSlug) => {
+    const docRef = doc(db, 'products', productSlug)
+    const productSnapshot = await getDoc(docRef)
+    if (productSnapshot.exists()) {
+      return productSnapshot.data()
+    } else {
+      console.error('no document for that slug')
+    }
+  }
+)
+
 export const addNewProduct = createAsyncThunk(
   'products/addProduct',
   async (data) => {
@@ -40,10 +53,11 @@ const productsSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: builder => {
-    builder.addCase(fetchProducts.fulfilled, (state, action) => {
-      state.status = 'succeeded';
-      state.products = action.payload;
-    })
+    builder
+      .addCase(fetchProducts.fulfilled, (state, action) => {
+        state.status = 'succeeded';
+        state.products = action.payload;
+      })
   }
 })
 
@@ -52,3 +66,29 @@ export const productsSliceActions = productsSlice.actions
 export default productsSlice.reducer
 
 export const selectAllProducts = state => state.products.products
+export const selectProductBySlug = (state, productSlug) => {
+  return state.products.products.find(product => product.slug === productSlug)
+}
+export const selectProductsByFilterText = (state, filterText) => {
+  return state.products.products.filter(product => product.name.toLocaleLowerCase().includes(filterText))
+}
+
+export const selectProductsByFilterAndSort = (state, filterText, sortString) => {
+  const filteredSortedProducts = state.products.products.filter(product => product.name.toLocaleLowerCase().includes(filterText))
+  if (sortString === 'ratingLowToHigh') {
+    filteredSortedProducts.sort(compareProductRatings)
+  } else {
+    filteredSortedProducts.sort(compareProductRatings).reverse()
+  }
+  return filteredSortedProducts
+}
+
+const compareProductRatings = (a, b) => {
+  if (a.avgRating < b.avgRating) {
+    return -1
+  }
+  if (a.avgRating > b.avgRating) {
+    return 1
+  }
+  return 0
+}

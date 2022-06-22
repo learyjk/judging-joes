@@ -30,8 +30,8 @@ const AddReview = ({ productSlug }) => {
   }
 
   return (
-    <section className='w-full'>
-      <form className='flex flex-col gap-4 bg-slate-100 p-4 rounded-xl'>
+    <div className='w-full bg-stone-200 pt-2'>
+      <form className='flex flex-col gap-4 p-4 rounded-xl'>
         {/* <label htmlFor="name">Username:</label>
         <input
           required
@@ -43,12 +43,12 @@ const AddReview = ({ productSlug }) => {
           onChange={onUserChanged}
         /> */}
         <div className='flex flex-row gap-4'>
-          <div className='flex flex-col'>
-            <label htmlFor="rating">Rating:</label>
+          <div className='flex flex-col relative'>
+            <label className='absolute left-2 -top-3 bg-white rounded-md py-0.5 px-1 text-xs uppercase border-slate-400 border' htmlFor="rating">Rating:</label>
             <input
               required
               disabled={!user ? true : false}
-              className='flex-grow text-center w-20 border rounded-md px-2 py-1 text-5xl font-display leading-tight'
+              className='flex-grow text-center w-20 border border-slate-400 rounded-md px-2 py-1 text-5xl font-display leading-tight'
               type='number'
               id="rating"
               name="rating"
@@ -57,12 +57,12 @@ const AddReview = ({ productSlug }) => {
               onChange={onRatingChanged}
             />
           </div>
-          <div className='flex flex-col w-full'>
-            <label htmlFor="review">Review: </label>
+          <div className='flex flex-col relative w-full'>
+            <label className='absolute left-2 -top-3 bg-white rounded-md  py-0.5 px-1 text-xs uppercase border-slate-400 border' htmlFor="review">Review: </label>
             <textarea
               required
               disabled={!user ? true : false}
-              className='flex-grow border rounded-md px-2 py-1'
+              className='flex-grow border border-slate-400 rounded-md px-2 py-2'
               type="textarea"
               id="review"
               name="review"
@@ -71,13 +71,11 @@ const AddReview = ({ productSlug }) => {
             />
           </div>
         </div>
-
-        <button className={`${!user ? 'pointer-events-none' : ''} rounded-md px-2 py-1 bg-blue-200 hover:bg-blue-300`} type="button" onClick={onAddReviewClicked}>
+        <button className={`${!user ? 'pointer-events-none' : ''} rounded-md px-2 py-1 text-red-50 bg-red-700 hover:bg-red-600 transition-colors duration-300 ease-out`} type="button" onClick={onAddReviewClicked}>
           {`${!user ? 'Please login to review' : 'Add Your Review'}`}
         </button>
       </form>
-
-    </section>
+    </div>
   );
 };
 

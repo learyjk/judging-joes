@@ -5,7 +5,7 @@ const ProductCard = ({ product }) => {
   const { name, avgRating, numReviews, category, imageUrl, slug } = product
   return (
     <Link to={`/${slug}`}>
-      <div className='flex w-full items-stretch border border-stone-800 rounded-lg bg-white transition-all duration-300 hover:bg-red-100 hover:border-rose-900 group'>
+      <div className='flex w-full items-stretch border border-stone-400 rounded-lg bg-white transition-all duration-300 hover:bg-red-100 hover:border-rose-900 group'>
         <div className='flex-none flex flex-col items-center justify-center w-28'>
           <p className=' text-4xl font-display font-bold tracking-wider'>{avgRating.toFixed(2)}</p>
           <p className=' text-sm'>{`(${numReviews})`}</p>
