@@ -5,10 +5,14 @@ TODO
 [X] Add categories to Card component
 [ ] Finalize categories and change to dropdown
 [X] Auth
+[ ] Show user photo if available - test photoURL
 [ ] Styling
-[ ] Filter and sort
+[X] Filter and sort
 [ ] Bubble featured / new to top.
 [ ] Deploy
+[ ] Populate with interesting example data
+[ ] Add bottom margin
+[ ] Choose default body text
 
 React
 Redux Toolkit
