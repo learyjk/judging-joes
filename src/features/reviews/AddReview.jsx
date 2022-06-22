@@ -21,8 +21,16 @@ const AddReview = ({ productSlug }) => {
       alert('invalid review')
       return
     }
+    if (rating < 1 || rating > 5) {
+      alert('please enter a rating between 1 and 5')
+      return
+    }
+    if (review.trim().length < 32) {
+      alert('please enter at least 32 characters in your review')
+      return
+    }
 
-    const data = { user: user.displayName, uid: user.uid, rating, review, productSlug, userPhoto: user.photoURL }
+    const data = { user: user.displayName, uid: user.uid, rating, review: review.trim(), productSlug, userPhoto: user.photoURL }
     await dispatch(addNewReview(data))
     setRating(0)
     setReview('')
