@@ -1,22 +1,29 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React from "react";
+import { Link } from "react-router-dom";
 
 const ProductCard = ({ product }) => {
-  const { name, avgRating, numReviews, category, imageUrl, slug } = product
+  const { name, avgRating, numReviews, category, imageUrl, slug } = product;
   return (
     <Link to={`/${slug}`}>
-      <div className='flex w-full sm:h-32 items-stretch border border-stone-400 rounded-lg bg-white transition-all duration-300 sm:hover:bg-red-100 hover:border-rose-900 group flex-wrap sm:flex-nowrap overflow-hidden'>
-
-        <div className='flex-none flex flex-col items-center justify-center sm:w-28 w-1/2'>
-          <p className=' text-4xl font-display font-bold tracking-wider'>{avgRating.toFixed(2)}</p>
-          <p className=' text-sm'>{`(${numReviews})`}</p>
+      <div className="group flex w-full flex-wrap items-stretch overflow-hidden rounded-lg border border-stone-400 bg-white transition-all duration-300 hover:border-rose-900 sm:h-32 sm:flex-nowrap sm:hover:bg-red-100">
+        <div className="flex w-1/2 flex-none flex-col items-center justify-center sm:w-28">
+          <p className=" font-display text-4xl font-bold tracking-wider">
+            {avgRating.toFixed(2)}
+          </p>
+          <p className=" text-sm">{`(${numReviews})`}</p>
         </div>
-        <div className='flex-none sm:w-28 sm:min-h-32 h-32 w-1/2 overflow-hidden'>
-          <img className='w-full h-full sm:h-32 object-cover group-hover:scale-105 transition-transform duration-300 group-hover:brightness-110' src={imageUrl} alt={name} />
+        <div className="sm:min-h-32 h-32 w-1/2 flex-none overflow-hidden sm:w-28">
+          <img
+            className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105 group-hover:brightness-110 sm:h-32"
+            src={imageUrl}
+            alt={name}
+          />
         </div>
-        <div className='shrink flex flex-col p-4 sm:bg-transparent bg-red-50 w-full'>
-          <p className='text-xs uppercase font-light tracking-widest mb-1'>{category}</p>
-          <h2 className='font-display text-xl'>{name}</h2>
+        <div className="flex w-full shrink flex-col bg-red-50 p-4 sm:bg-transparent">
+          <p className="mb-1 text-xs font-light uppercase tracking-widest">
+            {category}
+          </p>
+          <h2 className="font-display text-xl">{name}</h2>
         </div>
       </div>
     </Link>
