@@ -41,10 +41,10 @@ const ProductDetail = () => {
       <section className='container max-w-xl w-full'>
         <div className='border border-slate-400 rounded-2xl '>
           <img className='w-full h-48 object-cover rounded-t-2xl' src={product.imageUrl} alt={product.name} />
-          <div className='relative'>
+          <div className='relative pt-6 bg-stone-200 rounded-b-2xl'>
             <AddReview productSlug={productSlug} />
-            <div className='absolute -top-8 -right-4 bg-red-700 text-red-50 text-2xl font-display px-4 py-1 rounded-lg border border-red-900'>{product.name}</div>
-            <div className='absolute -top-32 -right-4 bg-red-700 text-red-50 text-5xl font-display px-4 pb-4 rounded-lg border border-red-900'>{product.avgRating.toFixed(2)}</div>
+            <div className='absolute -top-6 -right-4 bg-red-700 text-red-50 text-lg sm:text-2xl font-display px-4 py-1 ml-2 rounded-lg border border-red-900 z-20'>{product.name}</div>
+            <div className='absolute -top-40 -right-4 bg-red-700 text-red-50 text-5xl font-display px-4 z-20 pb-4 rounded-lg border border-red-900'>{product.avgRating.toFixed(2)}</div>
           </div>
 
         </div>

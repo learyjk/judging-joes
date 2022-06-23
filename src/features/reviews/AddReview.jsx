@@ -38,11 +38,11 @@ const AddReview = ({ productSlug }) => {
   }
 
   return (
-    <div className='w-full bg-stone-200 pt-2 rounded-b-2xl'>
+    <div className='w-full pt-2 rounded-b-2xl'>
       <form className='flex flex-col gap-4 p-4 rounded-xl'>
         <div className='flex flex-row gap-4'>
           <div className='flex flex-col relative'>
-            <label className='absolute left-2 -top-3 bg-white rounded-md py-0.5 px-1 text-xs uppercase border-slate-400 border' htmlFor="rating">Rating:</label>
+            <label className='absolute left-2 -top-3 bg-white rounded-md py-0.5 px-1 text-xs uppercase border-slate-400 border z-10' htmlFor="rating">Rating:</label>
             <input
               required
               disabled={!user ? true : false}
@@ -56,7 +56,7 @@ const AddReview = ({ productSlug }) => {
             />
           </div>
           <div className='flex flex-col relative w-full'>
-            <label className='absolute left-2 -top-3 bg-white rounded-md  py-0.5 px-1 text-xs uppercase border-slate-400 border' htmlFor="review">Review: </label>
+            <label className='absolute left-2 -top-3 bg-white rounded-md  py-0.5 px-1 text-xs uppercase border-slate-400 border z-10' htmlFor="review">Review: </label>
             <textarea
               required
               disabled={!user ? true : false}
