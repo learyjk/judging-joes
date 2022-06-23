@@ -41,7 +41,7 @@ const ProductsList = () => {
 
         <div className="relative flex w-full flex-col">
           <label
-            className="left-2 -top-3 rounded-md border border-slate-400   bg-white py-0.5 px-1 text-xs uppercase first-line:absolute"
+            className="absolute left-2 -top-3 rounded-md border border-slate-400 bg-white py-0.5 px-1 text-xs uppercase first-line:absolute"
             htmlFor="filter"
           >
             Filter:{" "}
